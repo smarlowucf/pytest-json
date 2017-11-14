@@ -57,6 +57,21 @@ or you can set the jsonapi flag in an ini file::
 Note that the value of the ini var can be anything. Presence alone will cause
 it to be true.
 
+The json report plugin can also be used with inline Pytest execution.
+
+.. code-block:: python
+
+  import pytest
+  from pytest_json.report import JSONReport
+
+  plugin = JSONReport()
+  result = pytest.main(['/tmp/test_file.py'], plugins=[plugin])
+
+  assert plugin.json_report['report']['summary']['passed'] == 1
+
+The report dictionary is accesible on the plugin object following the test run
+, `plugin.json_report`.
+
 Adding to environment
 ---------------------
 

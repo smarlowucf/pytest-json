@@ -88,10 +88,10 @@ def expected_data():
             }
         },
         {
-            "outcome": "xpassed",
+            "outcome": "passed",
             "call": {
                 "xfail_reason": "testing xfail",
-                "outcome": "xpassed",
+                "outcome": "passed",
                 "name": "call",
                 "stdout": "I am xfailed but passing\n"
             },
@@ -214,9 +214,8 @@ def test_report(testdir, expected_data):
     assert report['summary']['num_tests'] == 7
     assert report['summary']['xfailed'] == 1
     assert report['summary']['failed'] == 1
-    assert report['summary']['passed'] == 2
+    assert report['summary']['passed'] == 3
     assert report['summary']['error'] == 2
-    assert report['summary']['xpassed'] == 1
     assert report['summary']['skipped'] == 1
 
     # tests

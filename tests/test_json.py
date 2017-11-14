@@ -410,3 +410,4 @@ def test_help_message(testdir):
         '*json_report (string)*where to store the JSON report',
         '*jsonapi (string)*if present (any value), export JSON report as jsonapi',
     ])
+

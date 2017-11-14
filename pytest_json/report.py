@@ -16,9 +16,10 @@ if not PY3:
 
 class JSONReport(object):
     def __init__(self, json_path=None, jsonapi=False):
-        if json_path:
-            self.json_path = os.path.abspath(
-                os.path.expanduser(os.path.expandvars(json_path)))
+        self.json_path = os.path.abspath(
+            os.path.expanduser(os.path.expandvars(json_path))
+        ) if json_path else json_path
+
         self.jsonapi = jsonapi
         self.nodes = {}
         self.summary = {}

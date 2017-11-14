@@ -15,9 +15,10 @@ if not PY3:
 
 
 class JSONReport(object):
-    def __init__(self, json_path, jsonapi):
-        self.json_path = os.path.abspath(
-            os.path.expanduser(os.path.expandvars(json_path)))
+    def __init__(self, json_path=None, jsonapi=False):
+        if json_path:
+            self.json_path = os.path.abspath(
+                os.path.expanduser(os.path.expandvars(json_path)))
         self.jsonapi = jsonapi
         self.nodes = {}
         self.summary = {}
@@ -202,11 +203,14 @@ class JSONReport(object):
         else:
             report = self._default_report(env, tests, created_at)
 
-        if not os.path.exists(os.path.dirname(self.json_path)):
-            os.makedirs(os.path.dirname(self.json_path))
+        if self.json_path:
+            if not os.path.exists(os.path.dirname(self.json_path)):
+                os.makedirs(os.path.dirname(self.json_path))
 
-        with open(self.json_path, 'w', encoding='utf-8') as f:
-            f.write(json.dumps(report))
+            with open(self.json_path, 'w', encoding='utf-8') as f:
+                f.write(json.dumps(report))
+        else:
+            self.json_report = report
 
     def pytest_terminal_summary(self, terminalreporter):
         terminalreporter.write_sep('-', 'generated json report: {0}'.format(
